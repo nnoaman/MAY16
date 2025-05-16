@@ -83,6 +83,7 @@ jobs:
           CLIENT_ID: ${{ secrets.CLIENT_ID }}
           CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
           CONTROL_PLANE_NAME: ${{ inputs.control_plane_name }}
+          WORKLOAD_ZONE_NAME: ${{ inputs.workload_zone }}
           DEPLOYER_KEYVAULT: ${{ vars.DEPLOYER_KEYVAULT }}
           OBJECT_ID: ${{ secrets.OBJECT_ID }}
           TENANT_ID: ${{ secrets.TENANT_ID }}
