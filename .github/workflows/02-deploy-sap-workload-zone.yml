@@ -83,7 +83,6 @@ jobs:
           CLIENT_ID: ${{ secrets.CLIENT_ID }}
           CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
           CONTROL_PLANE_NAME: ${{ inputs.control_plane_name }}
-          WORKLOAD_ZONE_FOLDERNAME: ${{ inputs.workload_zone }}-INFRASTRUCTURE
           DEPLOYER_KEYVAULT: ${{ vars.DEPLOYER_KEYVAULT }}
           OBJECT_ID: ${{ secrets.OBJECT_ID }}
           TENANT_ID: ${{ secrets.TENANT_ID }}
@@ -132,6 +131,7 @@ jobs:
           CLIENT_ID: ${{ secrets.CLIENT_ID }}
           CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
           CONTROL_PLANE_NAME: ${{ inputs.control_plane_name }}
+          WORKLOAD_ZONE_FOLDERNAME: ${{ inputs.workload_zone }}-INFRASTRUCTURE
           DEPLOYER_KEYVAULT: ${{ vars.DEPLOYER_KEYVAULT }}
           APP_REGISTRATION_APP_ID: ${{ secrets.APP_REGISTRATION_APP_ID }}
           DEPLOYER_TFSTATE_KEY: "${{ inputs.control_plane_name }}-INFRASTRUCTURE.terraform.tfstate"
