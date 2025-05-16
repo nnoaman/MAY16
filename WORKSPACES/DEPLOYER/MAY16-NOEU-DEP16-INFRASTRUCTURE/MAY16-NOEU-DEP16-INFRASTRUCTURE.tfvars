@@ -77,7 +77,7 @@ management_subnet_address_prefix = "10.170.20.64/28"
 #########################################################################################
 
 # firewall_deployment is a boolean flag controlling if an Azure firewall is to be deployed in the deployer VNet
-firewall_deployment = false
+firewall_deployment = true
 
 # management_firewall_subnet_arm_id is an optional parameter that if provided specifies
 # Azure resource identifier for the existing firewall subnet
