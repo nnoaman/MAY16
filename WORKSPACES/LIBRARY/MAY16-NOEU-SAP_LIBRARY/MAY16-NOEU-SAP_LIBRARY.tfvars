@@ -5,7 +5,7 @@ environment="MAY16"
 location="northeurope"
 
 # Defines the DNS suffix for the resources
-dns_label = "azure.may444.sapcontoso.com"
+dns_label = "azure.may16.sapcontoso.com"
 
 # use_private_endpoint defines that the storage accounts and key vaults have private endpoints enabled
 use_private_endpoint = true
