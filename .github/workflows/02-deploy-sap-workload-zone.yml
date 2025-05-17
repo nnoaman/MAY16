@@ -79,13 +79,13 @@ jobs:
         env:
           APPLICATION_CONFIGURATION_NAME: ${{ vars.APPLICATION_CONFIGURATION_NAME }}
           APP_TOKEN: ${{ steps.get_workflow_token.outputs.token }}
-          ARM_SUBSCRIPTION_ID: ${{ secrets.SUBSCRIPTION_ID }}
-          CLIENT_ID: ${{ secrets.CLIENT_ID }}
-          CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+          CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+          CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
           CONTROL_PLANE_NAME: ${{ inputs.control_plane_name }}
           DEPLOYER_KEYVAULT: ${{ vars.DEPLOYER_KEYVAULT }}
-          OBJECT_ID: ${{ secrets.OBJECT_ID }}
-          TENANT_ID: ${{ secrets.TENANT_ID }}
+          OBJECT_ID: ${{ secrets.ARM_OBJECT_ID }}
+          TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
           TF_VAR_agent_pool: 'Default'
           TF_VAR_ansible_core_version: ${{ env.ANSIBLE_CORE_VERSION }}
           TF_VAR_app_registration_app_id: ${{ secrets.APP_REGISTRATION_APP_ID }}
@@ -133,22 +133,22 @@ jobs:
         env:
           APPLICATION_CONFIGURATION_NAME: ${{ vars.APPLICATION_CONFIGURATION_NAME }}
           APP_TOKEN: ${{ steps.get_workflow_token.outputs.token }}
-          CLIENT_ID: ${{ secrets.CLIENT_ID }}
-          CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+          CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+          CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
           CONTROL_PLANE_NAME: ${{ inputs.control_plane_name }}
           WORKLOAD_ZONE_NAME: ${{ inputs.workload_zone }}
           DEPLOYER_KEYVAULT: ${{ vars.DEPLOYER_KEYVAULT }}
           APP_REGISTRATION_APP_ID: ${{ secrets.APP_REGISTRATION_APP_ID }}
           DEPLOYER_TFSTATE_KEY: "${{ inputs.control_plane_name }}-INFRASTRUCTURE.terraform.tfstate"
           IS_PIPELINE_DEPLOYMENT: true
-          OBJECT_ID: ${{ secrets.OBJECT_ID }}
-          ARM_SUBSCRIPTION_ID: "${{ secrets.SUBSCRIPTION_ID }}"
-          TENANT_ID: ${{ secrets.TENANT_ID }}
+          OBJECT_ID: ${{ secrets.ARM_OBJECT_ID }}
+          ARM_SUBSCRIPTION_ID: "${{ secrets.ARM_SUBSCRIPTION_ID }}"
+          TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
           TF_VAR_tf_version: ${{ env.TF_VERSION }}
           TF_VAR_agent_pool: 'Default'
           TF_VAR_ansible_core_version: ${{ env.ANSIBLE_CORE_VERSION }}
           TF_VAR_app_registration_app_id: ${{ secrets.APP_REGISTRATION_APP_ID }}
-          TF_VAR_subscription_id: ${{ secrets.SUBSCRIPTION_ID }}
+          TF_VAR_subscription_id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
           TF_VAR_APP_TOKEN: ${{ steps.get_workflow_token.outputs.token }}
           tf_version: ${{ env.TF_VERSION }}
           TF_VAR_use_spn: ${{ env.USE_MSI }}
