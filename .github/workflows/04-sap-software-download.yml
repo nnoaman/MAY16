@@ -106,7 +106,7 @@ jobs:
         env:
           APP_TOKEN: ${{ steps.get_workflow_token.outputs.token }}
           bom_base_name: ${{ inputs.bom_base_name }}
-          environment: ${{ inputs.control_plane_name }}
+          CONTROL_PLANE_NAME: ${{ inputs.control_plane_name }}
           re_download: ${{ inputs.re_download }}
           ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
           ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
