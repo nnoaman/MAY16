@@ -80,4 +80,4 @@ jobs:
           SAP_SYSTEM_FOLDERNAME: ${{ inputs.sap_system }}
           USE_MSI: ${{ env.USE_MSI }}
           TF_VAR_use_spn: ${{ env.USE_MSI }}
-          TF_VAR_tf_version: ${{ env.TF_VERSION }}
+          tf_version: ${{ env.TF_VERSION }}
