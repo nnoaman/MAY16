@@ -52,7 +52,6 @@ on:
           - MSSQLSRV_2019_v0001ms
           - SYBASE_1603SP15_v0003ms
           - XBOM_Tester
-
       control_plane_name:
         description: "Control Plane Environment"
         required: true
@@ -61,6 +60,10 @@ on:
         description: "Re-download"
         type: boolean
         default: false
+      extra_params:
+          description: "Extra Parameters"
+          type: string
+          default: ""
 
 permissions:
   contents: write
@@ -124,3 +127,4 @@ jobs:
           USE_MSI: ${{ env.USE_MSI }}
           TF_VAR_use_spn: ${{ env.USE_MSI }}
           tf_version: ${{ env.TF_VERSION }}
+          EXTRA_PARAMETERS: ${{ inputs.extra_params }}
