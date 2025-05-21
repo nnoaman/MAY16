@@ -38,6 +38,12 @@ jobs:
       image: ghcr.io/nnoaman/sap-automation:sdaf-github-actions
 
     steps:
+    
+      - name: Configure Git Safe Directory
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          git config --global --add safe.directory "/__w/${{ github.event.repository.name }}/${{ github.event.repository.name }}"
+
       - name: Checkout the code
         uses: actions/checkout@v4
         with:
