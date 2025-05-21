@@ -1,0 +1,107 @@
+M16_DB:
+  hosts:
+    m16dhdb00l092:
+      ansible_host        : 10.162.0.7
+      remote_user         : azureadm
+      ansible_connection  : ssh
+      connection_type     : key
+      virtual_host        : m16dhdb00l092
+      become_user         : root
+      os_type             : linux
+      vm_name             : DEV-NOEU-SAP01-M16_m16dhdb_z2_00l092c
+      resource_group_name : DEV-NOEU-SAP01-M16
+      subscription_id     : d6c8e3b6-467e-452e-97c9-49d9de9e37da
+
+    m16dhdb00l192:
+      ansible_host        : 10.162.0.6
+      remote_user         : azureadm
+      ansible_connection  : ssh
+      connection_type     : key
+      virtual_host        : m16dhdb00l192
+      become_user         : root
+      os_type             : linux
+      vm_name             : DEV-NOEU-SAP01-M16_m16dhdb_z2_00l192c
+      resource_group_name : DEV-NOEU-SAP01-M16
+      subscription_id     : d6c8e3b6-467e-452e-97c9-49d9de9e37da
+
+  vars:
+    node_tier             : hana
+    supported_tiers       : [hana]
+
+M16_SCS:
+  hosts:
+    m16scs00l92c:
+      ansible_host        : 10.162.32.13
+      remote_user         : azureadm
+      ansible_connection  : ssh
+      connection_type     : key
+      virtual_host        : m16scs00l92c
+      become_user         : root
+      os_type             : linux
+      vm_name             : DEV-NOEU-SAP01-M16_m16scs_z2_00l92c
+      resource_group_name : DEV-NOEU-SAP01-M16
+      subscription_id     : d6c8e3b6-467e-452e-97c9-49d9de9e37da
+
+  vars:
+    node_tier             : scs
+    supported_tiers       : [scs]
+
+M16_ERS:
+  hosts:
+    m16scs01l92c:
+      ansible_host        : 10.162.32.12
+      remote_user         : azureadm
+      ansible_connection  : ssh
+      connection_type     : key
+      virtual_host        : m16scs01l92c
+      become_user         : root
+      os_type             : linux
+      vm_name             : DEV-NOEU-SAP01-M16_m16scs_z2_01l92c
+      resource_group_name : DEV-NOEU-SAP01-M16
+      subscription_id     : d6c8e3b6-467e-452e-97c9-49d9de9e37da
+
+  vars:
+    node_tier             : ers
+    supported_tiers       : [ers]
+
+M16_PAS:
+  hosts:
+    m16app00l92c:
+      ansible_host        : 10.162.32.14
+      remote_user         : azureadm
+      ansible_connection  : ssh
+      connection_type     : key
+      virtual_host        : m16app00l92c
+      become_user         : root
+      os_type             : linux
+      vm_name             : DEV-NOEU-SAP01-M16_m16app_z2_00l92c
+      resource_group_name : DEV-NOEU-SAP01-M16
+      subscription_id     : d6c8e3b6-467e-452e-97c9-49d9de9e37da
+
+  vars:
+    node_tier             : pas
+    supported_tiers       : [pas]
+
+M16_APP:
+  hosts:
+  vars:
+    node_tier             : app
+    supported_tiers       : [app]
+
+M16_WEB:
+  hosts:
+  vars:
+    node_tier             : web
+    supported_tiers       : [web]
+
+M16_OBSERVER_DB:
+  hosts:
+  vars:
+    node_tier             : observer
+    supported_tiers       : [observer]
+
+M16_ISCSI:
+  hosts:
+  vars:
+    node_tier             : iscsi
+    supported_tiers       : [iscsi]
