@@ -96,3 +96,6 @@ runs:
         VAULT_NAME: ${{ inputs.vaultName }}
         PASSWORD_KEY_NAME: ${{ inputs.passwordSecretName }}
         USERNAME_KEY_NAME: ${{ inputs.userNameSecretName }}
+        CONTROL_PLANE_SUBSCRIPTION_ID: ${{ inputs.CONTROL_PLANE_SUBSCRIPTION_ID }}
+        CONTROL_PLANE_NAME: ${{ inputs.CONTROL_PLANE_NAME }}
+        APPLICATION_CONFIGURATION_NAME: ${{ inputs.APPLICATION_CONFIGURATION_NAME }}
