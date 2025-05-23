@@ -59,6 +59,10 @@ inputs:
     description: 'Control plane subscription ID'
     required: true
     default: ''
+  CONTROL_PLANE_NAME:
+    description: 'Control plane name'
+    required: true
+    default: ''
   APPLICATION_CONFIGURATION_NAME:
     description: 'Application configuration name'
     required: true
