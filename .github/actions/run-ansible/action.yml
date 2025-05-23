@@ -89,6 +89,7 @@ runs:
         ANSIBLE_FILE_PATH: ${{ inputs.ansibleFilePath }}
         ANSIBLE_CONFIG: ${{ inputs.ansibleConfigPath }}
         PARAMETERS_FOLDER: ${{ inputs.parametersFolder }}
+        AGENT_TEMPDIRECTORY: /tmp
         EXTRA_PARAMS: ${{ inputs.extraParams }}
         SAP_PARAMS: ${{ inputs.sapParams }}
         INVENTORY: ${{ inputs.parametersFolder }}/${{ inputs.sidHosts }}
