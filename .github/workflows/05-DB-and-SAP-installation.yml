@@ -181,8 +181,9 @@
           uses: ./.github/actions/run-ansible
           with:
             displayName: "Operating System Configuration"
+            SAP_AUTOMATION_REPO_PATH: ${{ env.SAP_AUTOMATION_REPO_PATH }}
             APPLICATION_CONFIGURATION_NAME: ${{ vars.APPLICATION_CONFIGURATION_NAME }}
-            CONTROL_PLANE_SUBSCRIPTION_ID: ${{ steps.preparation.outputs.CP_ARM_SUBSCRIPTION_ID }}
+            CONTROL_PLANE_SUBSCRIPTION_ID: ${{ steps.preparation.outputs.CP_SUBSCRIPTION }}
             CONTROL_PLANE_NAME: ${{ vars.CONTROL_PLANE_NAME }}
             USE_MSI: ${{ env.USE_MSI }}
             ansibleFilePath: ${{ env.SAP_AUTOMATION_REPO_PATH }}/deploy/ansible/playbook_01_os_base_config.yaml
@@ -205,8 +206,9 @@
           uses: ./.github/actions/run-ansible
           with:
             displayName: "SAP Specific Operating System Configuration"
+            SAP_AUTOMATION_REPO_PATH: ${{ env.SAP_AUTOMATION_REPO_PATH }}
             APPLICATION_CONFIGURATION_NAME: ${{ vars.APPLICATION_CONFIGURATION_NAME }}
-            CONTROL_PLANE_SUBSCRIPTION_ID: ${{ steps.preparation.outputs.CP_ARM_SUBSCRIPTION_ID }}
+            CONTROL_PLANE_SUBSCRIPTION_ID: ${{ steps.preparation.outputs.CP_SUBSCRIPTION }}
             CONTROL_PLANE_NAME: ${{ vars.CONTROL_PLANE_NAME }}
             USE_MSI: ${{ env.USE_MSI }}
             ansibleFilePath: ${{ env.SAP_AUTOMATION_REPO_PATH }}/deploy/ansible/playbook_02_os_sap_specific_config.yaml
@@ -230,8 +232,9 @@
           uses: ./.github/actions/run-ansible
           with:
             displayName: "Software download"
+            SAP_AUTOMATION_REPO_PATH: ${{ env.SAP_AUTOMATION_REPO_PATH }}
             APPLICATION_CONFIGURATION_NAME: ${{ vars.APPLICATION_CONFIGURATION_NAME }}
-            CONTROL_PLANE_SUBSCRIPTION_ID: ${{ steps.preparation.outputs.CP_ARM_SUBSCRIPTION_ID }}
+            CONTROL_PLANE_SUBSCRIPTION_ID: ${{ steps.preparation.outputs.CP_SUBSCRIPTION }}
             CONTROL_PLANE_NAME: ${{ vars.CONTROL_PLANE_NAME }}
             USE_MSI: ${{ env.USE_MSI }}
             ansibleFilePath: ${{ env.SAP_AUTOMATION_REPO_PATH }}/deploy/ansible/playbook_03_bom_processing.yaml
@@ -254,8 +257,9 @@
           uses: ./.github/actions/run-ansible
           with:
             displayName: "Post Configuration Actions"
+            SAP_AUTOMATION_REPO_PATH: ${{ env.SAP_AUTOMATION_REPO_PATH }}
             APPLICATION_CONFIGURATION_NAME: ${{ vars.APPLICATION_CONFIGURATION_NAME }}
-            CONTROL_PLANE_SUBSCRIPTION_ID: ${{ steps.preparation.outputs.CP_ARM_SUBSCRIPTION_ID }}
+            CONTROL_PLANE_SUBSCRIPTION_ID: ${{ steps.preparation.outputs.CP_SUBSCRIPTION }}
             CONTROL_PLANE_NAME: ${{ vars.CONTROL_PLANE_NAME }}
             USE_MSI: ${{ env.USE_MSI }}
             ansibleFilePath: ${{ env.SAP_AUTOMATION_REPO_PATH }}/deploy/ansible/playbook_08_00_00_post_configuration_actions.yaml
