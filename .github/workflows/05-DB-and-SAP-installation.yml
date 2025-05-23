@@ -20,7 +20,7 @@
           description: "Workload Environment ...)"
           type: environment
           required: true
-        bom_base_name:
+        bom_name:
           description: "Bill of Materials name (BoM)"
           required: true
           type: choice
@@ -120,6 +120,14 @@
           with:
             creds: '{"clientId":"${{ secrets.ARM_CLIENT_ID }}","clientSecret":"${{ secrets.ARM_CLIENT_SECRET }}","subscriptionId":"${{ secrets.ARM_SUBSCRIPTION_ID }}","tenantId":"${{ secrets.ARM_TENANT_ID }}"}'
 
+        - name: BOM Name
+          if: ${{ github.event.inputs.bom_name != '' }}
+          id: bom
+          run:  |
+              input="${{ github.event.inputs.bom_name }}"
+              bom_base_name=$(echo "$input" | cut -d' ' -f1)
+              echo "bom_base_name=$bom_base_name" >> "$GITHUB_OUTPUT"
+
         - name: Preparation for Ansible
           id: preparation
           run: |
@@ -135,7 +143,7 @@
             AZURE_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
             AZURE_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
             AZURE_OBJECT_ID: ${{ secrets.ARM_OBJECT_ID }}
-            BOM_BASE_NAME: ${{ inputs.bom_base_name }}
+            BOM_BASE_NAME: ${{ steps.bom.outputs.bom_base_name }}
             SAP_SYSTEM_CONFIGURATION_NAME: ${{ inputs.sap_system_configuration_name }}
             CONTROL_PLANE_NAME: ${{ vars.CONTROL_PLANE_NAME }}
             SCRIPT_PATH: ./sap-automation/deploy/pipelines/templates/*.sh
