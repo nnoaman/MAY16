@@ -11,10 +11,6 @@
   on:
     workflow_dispatch:
       inputs:
-        bom_processing:
-          description: "Local Software Download"
-          type: boolean
-          default: true
         sap_system_configuration_name:
           description: "SAP System configuration name (ENV-LOCA-VNET-SID)"
           default: "DEV-WEEU-SAP01-X00"
@@ -70,6 +66,10 @@
           description: "Extra Parameters"
           type: string
           default: " "
+        bom_processing:
+          description: "Local Software Download"
+          type: boolean
+          default: true
         scs_installation:
           description: "SCS Installation"
           type: boolean
