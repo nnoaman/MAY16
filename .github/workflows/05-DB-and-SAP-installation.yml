@@ -25,15 +25,15 @@
           type: string
           default: " "
         scs_installation:
-          description: "Core Operating System Configuration"
+          description: "SCS Installation"
           type: boolean
           default: true
         database_install:
-          description: "SAP Operating System Configuration"
+          description: "Database Installation"
           type: boolean
           default: true
         db_load:
-          description: "Local Software Download"
+          description: "Database Load"
           type: boolean
           default: true
         post_configuration_actions:
