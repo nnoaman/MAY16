@@ -5,8 +5,8 @@
   # |                                                                            |
   # +------------------------------------4--------------------------------------*/
 
-  name: Operating System Preparation
-  run-name: Operating System Preparation by @${{ github.actor }}
+  name: SAP SCS & DB Installation
+  run-name: SAP SCS & DB Installation by @${{ github.actor }}
 
   on:
     workflow_dispatch:
