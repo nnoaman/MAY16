@@ -20,19 +20,61 @@
           description: "Workload Environment ...)"
           type: environment
           required: true
+        bom_name:
+          description: "Bill of Materials name (BoM)"
+          required: true
+          type: choice
+          options:
+            - S42023SPS00_v0005ms (HANA_2_00_081)
+            - S42023SPS00_v0003ms (HANA_2_00_077)
+            - S42023SPS00_v0004ms (HANA_2_00_077 - dynamic)
+            - S42022SPS00_v0004ms (HANA_2_00_077 - dynamic)
+            - S42022SPS00_v0005ms (HANA_2_00_076)
+            - S42022SPS00_v0006ms (HANA_2_00_077)
+            - S42021ISS00_v0003ms (HANA_2_00_067)
+            - S42020ISS00_v0004ms (HANA_2_00_067 - dynamic)
+            - S42020SPS03_v0005ms (HANA_2_00_067)
+            - S41909SPS03_v0012ms (HANA_2_00_059 - dynamic)
+            - S41909ISS00_v0013ms (HANA_2_00_059)
+            - NW750SPS20_v0005ms (HANA_2_00_067)
+            - NW750SPS20_v0006ms (HANA_2_00_067 - dynamic)
+            - NW750SPS25_JAVA_v0001ms (HANA_2_00_067)
+            - NW752SPS09_v0002ms (HANA_2_00_067)
+            - NW750SPS25_JAVA__HANA_v0001ms (HANA_2_00_067)
+            - NW750SPS20_DB2_v0002ms (DB2_UDB_11_5)
+            - NW750_ORACLE_19_v0001ms (Oracle_19)
+            - NW750_ORACLE_19_v0002ms (Oracle_19 - Kernel 754)
+            - NW750_ORACLE_19_ASM_v0002ms (Oracle_19)
+            - NW750SPS25_JAVA_Oracle_19_00_v0001ms (Oracle_19)
+            - NW750SPS20_SYBASE_v0003ms (ASE_16_0_3)
+            - NW750_MSSQL_v0003ms (MSSQL_2019)
+            - SOLMAN_72SR2_JAVA_v0001ms (HANA_2_00_081)
+            - SOLMAN_72SR2_v0001ms (HANA_2_00_081)
+            - HANA_2_00_059_v0011ms
+            - HANA_2_00_067_v0006ms
+            - HANA_2_00_076_v0001ms
+            - HANA_2_00_077_v0002ms
+            - HANA_2_00_081_v0001ms
+            - DB2_UDB_11_5_v0001ms
+            - ORACLE_19_00_v0003ms
+            - ORACLE_19_00_ASM_v0001ms
+            - ORACLE_19_00_ORA_MSID_v0002ms
+            - MSSQLSRV_2019_v0001ms
+            - SYBASE_1603SP15_v0003ms
+            - XBOM_Tester
         extra_params:
           description: "Extra Parameters"
           type: string
           default: " "
-        scs_installation:
+        base_os_configuration:
           description: "Core Operating System Configuration"
           type: boolean
           default: true
-        database_install:
+        sap_os_configuration:
           description: "SAP Operating System Configuration"
           type: boolean
           default: true
-        db_load:
+        bom_processing:
           description: "Local Software Download"
           type: boolean
           default: true
@@ -53,8 +95,8 @@
     USE_MSI: false
 
   jobs:
-    sap_scs_db_installation:
-      name: SAP SCS & DB Installation
+    operating_system_preparation:
+      name: Operating System Preparation
       environment: ${{ inputs.workload_zone_name }}
       runs-on: self-hosted
       container:
@@ -142,17 +184,17 @@
             azureTenantId: ${{ secrets.ARM_TENANT_ID }}
             azureSubscriptionId: ${{ secrets.ARM_SUBSCRIPTION_ID }}
 
-        - name: Central Services Installation
-          if: ${{ github.event.inputs.scs_installation == 'true' }}
+        - name: Core OS Configuration
+          if: ${{ github.event.inputs.base_os_configuration == 'true' }}
           uses: ./.github/actions/run-ansible
           with:
-            displayName: "Central Services Installation"
+            displayName: "Operating System Configuration"
             SAP_AUTOMATION_REPO_PATH: ${{ env.SAP_AUTOMATION_REPO_PATH }}
             APPLICATION_CONFIGURATION_NAME: ${{ vars.APPLICATION_CONFIGURATION_NAME }}
             CONTROL_PLANE_SUBSCRIPTION_ID: ${{ steps.preparation.outputs.CP_SUBSCRIPTION }}
             CONTROL_PLANE_NAME: ${{ vars.CONTROL_PLANE_NAME }}
             USE_MSI: ${{ env.USE_MSI }}
-            ansibleFilePath: ${{ env.SAP_AUTOMATION_REPO_PATH }}/deploy/ansible/playbook_05_00_00_sap_scs_install.yaml
+            ansibleFilePath: ${{ env.SAP_AUTOMATION_REPO_PATH }}/deploy/ansible/playbook_01_os_base_config.yaml
             ansibleConfigPath: ${{ env.SAP_AUTOMATION_REPO_PATH }}/deploy/ansible/ansible.cfg
             secretName: ${{ steps.preparation.outputs.SSH_KEY_NAME }}
             passwordSecretName: ${{ steps.preparation.outputs.PASSWORD_KEY_NAME }}
@@ -167,17 +209,17 @@
             azureTenantId: ${{ secrets.ARM_TENANT_ID }}
             azureSubscriptionId: ${{ secrets.ARM_SUBSCRIPTION_ID }}
 
-        - name: Database Installation
-          if: ${{ github.event.inputs.database_install == 'true' }}
+        - name: SAP Specific OS Configuration
+          if: ${{ github.event.inputs.sap_os_configuration == 'true' }}
           uses: ./.github/actions/run-ansible
           with:
-            displayName: "Database Installation"
+            displayName: "SAP Specific Operating System Configuration"
             SAP_AUTOMATION_REPO_PATH: ${{ env.SAP_AUTOMATION_REPO_PATH }}
             APPLICATION_CONFIGURATION_NAME: ${{ vars.APPLICATION_CONFIGURATION_NAME }}
             CONTROL_PLANE_SUBSCRIPTION_ID: ${{ steps.preparation.outputs.CP_SUBSCRIPTION }}
             CONTROL_PLANE_NAME: ${{ vars.CONTROL_PLANE_NAME }}
             USE_MSI: ${{ env.USE_MSI }}
-            ansibleFilePath: ${{ env.SAP_AUTOMATION_REPO_PATH }}/deploy/ansible/playbook_04_00_00_db_install.yaml
+            ansibleFilePath: ${{ env.SAP_AUTOMATION_REPO_PATH }}/deploy/ansible/playbook_02_os_sap_specific_config.yaml
             ansibleConfigPath: ${{ env.SAP_AUTOMATION_REPO_PATH }}/deploy/ansible/ansible.cfg
             secretName: ${{ steps.preparation.outputs.SSH_KEY_NAME }}
             passwordSecretName: ${{ steps.preparation.outputs.PASSWORD_KEY_NAME }}
@@ -193,17 +235,17 @@
             azureSubscriptionId: ${{ secrets.ARM_SUBSCRIPTION_ID }}
 
 
-        - name: Database Load
-          if: ${{ github.event.inputs.db_load == 'true' }}
+        - name: SAP Software download
+          if: ${{ github.event.inputs.bom_processing == 'true' }}
           uses: ./.github/actions/run-ansible
           with:
-            displayName: "Database Load"
+            displayName: "Software download"
             SAP_AUTOMATION_REPO_PATH: ${{ env.SAP_AUTOMATION_REPO_PATH }}
             APPLICATION_CONFIGURATION_NAME: ${{ vars.APPLICATION_CONFIGURATION_NAME }}
             CONTROL_PLANE_SUBSCRIPTION_ID: ${{ steps.preparation.outputs.CP_SUBSCRIPTION }}
             CONTROL_PLANE_NAME: ${{ vars.CONTROL_PLANE_NAME }}
             USE_MSI: ${{ env.USE_MSI }}
-            ansibleFilePath: ${{ env.SAP_AUTOMATION_REPO_PATH }}/deploy/ansible/playbook_05_01_sap_dbload.yaml
+            ansibleFilePath: ${{ env.SAP_AUTOMATION_REPO_PATH }}/deploy/ansible/playbook_03_bom_processing.yaml
             ansibleConfigPath: ${{ env.SAP_AUTOMATION_REPO_PATH }}/deploy/ansible/ansible.cfg
             secretName: ${{ steps.preparation.outputs.SSH_KEY_NAME }}
             passwordSecretName: ${{ steps.preparation.outputs.PASSWORD_KEY_NAME }}
