@@ -11,6 +11,10 @@
   on:
     workflow_dispatch:
       inputs:
+        bom_processing:
+          description: "Local Software Download"
+          type: boolean
+          default: true
         sap_system_configuration_name:
           description: "SAP System configuration name (ENV-LOCA-VNET-SID)"
           default: "DEV-WEEU-SAP01-X00"
@@ -101,6 +105,11 @@
       runs-on: self-hosted
       container:
         image: ghcr.io/nnoaman/sap-automation:sdaf-github-actions
+        volumes:
+          - /usr/sap:/usr/sap
+          - /usr/sap/install:/usr/sap/install
+          - /usr/sap/trans:/usr/sap/trans
+          - /sapmnt:/sapmnt
       steps:
         - name: Checkout the code
           uses: actions/checkout@v4
@@ -150,15 +159,15 @@
             EXTRA_PARAMETERS: ${{ inputs.EXTRA_PARAMS }}
             USE_MSI: ${{ env.USE_MSI }}
 
-        - name: Install Ansible Collections
-          run: |
-            ansible-galaxy collection install ansible.windows --force
-            ansible-galaxy collection install ansible.posix --force
-            ansible-galaxy collection install ansible.utils --force
-            ansible-galaxy collection install ansible.netcommon:5.1.2 --force
-            ansible-galaxy collection install community.windows --force
-            ansible-galaxy collection install community.general --force
-            ansible-galaxy collection install microsoft.ad --force
+        # - name: Install Ansible Collections
+        #   run: |
+        #     ansible-galaxy collection install ansible.windows --force
+        #     ansible-galaxy collection install ansible.posix --force
+        #     ansible-galaxy collection install ansible.utils --force
+        #     ansible-galaxy collection install ansible.netcommon:5.1.2 --force
+        #     ansible-galaxy collection install community.windows --force
+        #     ansible-galaxy collection install community.general --force
+        #     ansible-galaxy collection install microsoft.ad --force
 
         - name: Parameter Validation
           uses: ./.github/actions/run-ansible
@@ -170,6 +179,31 @@
             CONTROL_PLANE_NAME: ${{ vars.CONTROL_PLANE_NAME }}
             USE_MSI: ${{ env.USE_MSI }}
             ansibleFilePath: "${{ env.SAP_AUTOMATION_REPO_PATH }}/deploy/ansible/playbook_00_validate_parameters.yaml"
+            ansibleConfigPath: ${{ env.SAP_AUTOMATION_REPO_PATH }}/deploy/ansible/ansible.cfg
+            secretName: ${{ steps.preparation.outputs.SSH_KEY_NAME }}
+            passwordSecretName: ${{ steps.preparation.outputs.PASSWORD_KEY_NAME }}
+            userNameSecretName: ${{ steps.preparation.outputs.USERNAME_KEY_NAME }}
+            vaultName: ${{ steps.preparation.outputs.VAULT_NAME }}
+            parametersFolder: ${{ steps.preparation.outputs.FOLDER }}
+            sapParams: "${{ env.GITHUB_WORKSPACE }}/WORKSPACES/SYSTEM/${{ inputs.sap_system_configuration_name }}/artifacts/${{ steps.preparation.outputs.SAP_PARAMETERS }}"
+            sidHosts: ${{ steps.preparation.outputs.HOSTS }}
+            extraParams: ${{ steps.preparation.outputs.NEW_PARAMETERS }}
+            azureClientId: ${{ secrets.ARM_CLIENT_ID }}
+            azureClientSecret: ${{ secrets.ARM_CLIENT_SECRET }}
+            azureTenantId: ${{ secrets.ARM_TENANT_ID }}
+            azureSubscriptionId: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+
+        - name: SAP Software download
+          if: ${{ github.event.inputs.bom_processing == 'true' }}
+          uses: ./.github/actions/run-ansible
+          with:
+            displayName: "Software download"
+            SAP_AUTOMATION_REPO_PATH: ${{ env.SAP_AUTOMATION_REPO_PATH }}
+            APPLICATION_CONFIGURATION_NAME: ${{ vars.APPLICATION_CONFIGURATION_NAME }}
+            CONTROL_PLANE_SUBSCRIPTION_ID: ${{ steps.preparation.outputs.CP_SUBSCRIPTION }}
+            CONTROL_PLANE_NAME: ${{ vars.CONTROL_PLANE_NAME }}
+            USE_MSI: ${{ env.USE_MSI }}
+            ansibleFilePath: ${{ env.SAP_AUTOMATION_REPO_PATH }}/deploy/ansible/playbook_03_bom_processing.yaml
             ansibleConfigPath: ${{ env.SAP_AUTOMATION_REPO_PATH }}/deploy/ansible/ansible.cfg
             secretName: ${{ steps.preparation.outputs.SSH_KEY_NAME }}
             passwordSecretName: ${{ steps.preparation.outputs.PASSWORD_KEY_NAME }}
