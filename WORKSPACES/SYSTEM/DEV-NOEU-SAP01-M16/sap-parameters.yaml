@@ -36,14 +36,14 @@ scs_instance_number:                     "00"
 
 # scs_lb_ip is the Virtual IP address of the load balancer for
 # the SAP Central Services virtual machines
-scs_lb_ip:                               10.162.32.10
+scs_lb_ip:                               10.162.32.11
 
 # ERS Instance Number
 ers_instance_number:                     "01"
 
 # ecs_lb_ip is the ERS IP address of the load balancer for
 # the SAP Central Services virtual machines
-ers_lb_ip:                               10.162.32.11
+ers_lb_ip:                               10.162.32.12
 
 
 # PAS Instance Number
@@ -95,10 +95,10 @@ db_high_availability:                    true
 database_high_availability:              true
 database_cluster_type:                   AFA
 # database_loadbalancer_ip is the IP address of the load balancer for the database virtual machines
-database_loadbalancer_ip:                10.162.0.5
+database_loadbalancer_ip:                10.162.0.6
 
 # Backwards compatibility
-db_lb_ip:                                10.162.0.5
+db_lb_ip:                                10.162.0.6
 
 
 

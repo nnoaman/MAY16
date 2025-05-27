@@ -13,7 +13,7 @@ M16_DB:
       subscription_id     : d6c8e3b6-467e-452e-97c9-49d9de9e37da
 
     m16dhdb00l192:
-      ansible_host        : 10.162.0.6
+      ansible_host        : 10.162.0.5
       remote_user         : azureadm
       ansible_connection  : ssh
       connection_type     : key
@@ -49,7 +49,7 @@ M16_SCS:
 M16_ERS:
   hosts:
     m16scs01l92c:
-      ansible_host        : 10.162.32.12
+      ansible_host        : 10.162.32.9
       remote_user         : azureadm
       ansible_connection  : ssh
       connection_type     : key

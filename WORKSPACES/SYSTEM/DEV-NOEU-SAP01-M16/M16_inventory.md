@@ -4,7 +4,7 @@
 | SID              | M16                          |
 | Database         | HANA                     |
 | DB SID           | HDB                       |
-| SCS Server IP    | 10.162.32.10                    |
+| SCS Server IP    | 10.162.32.11                    |
 
 ## Servers
 | Database                    | m16dhdb00l092,m16dhdb00l192          |
