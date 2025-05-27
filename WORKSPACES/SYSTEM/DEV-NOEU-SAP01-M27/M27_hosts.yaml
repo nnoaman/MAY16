@@ -1,0 +1,83 @@
+M27_DB:
+  hosts:
+    m27dhdb00l0cd:
+      ansible_host        : 10.162.0.8
+      remote_user         : azureadm
+      ansible_connection  : ssh
+      connection_type     : key
+      virtual_host        : m27dhdb00l0cd
+      become_user         : root
+      os_type             : linux
+      vm_name             : DEV-NOEU-SAP01-M27_m27dhdb_z2_00l0cda
+      resource_group_name : DEV-NOEU-SAP01-M27
+      subscription_id     : d6c8e3b6-467e-452e-97c9-49d9de9e37da
+
+  vars:
+    node_tier             : hana
+    supported_tiers       : [hana]
+
+M27_SCS:
+  hosts:
+    m27scs00lcda:
+      ansible_host        : 10.162.32.19
+      remote_user         : azureadm
+      ansible_connection  : ssh
+      connection_type     : key
+      virtual_host        : m27scs00lcda
+      become_user         : root
+      os_type             : linux
+      vm_name             : DEV-NOEU-SAP01-M27_m27scs_z2_00lcda
+      resource_group_name : DEV-NOEU-SAP01-M27
+      subscription_id     : d6c8e3b6-467e-452e-97c9-49d9de9e37da
+
+  vars:
+    node_tier             : scs
+    supported_tiers       : [scs]
+
+M27_ERS:
+  hosts:
+  vars:
+    node_tier             : ers
+    supported_tiers       : [ers]
+
+M27_PAS:
+  hosts:
+    m27app00lcda:
+      ansible_host        : 10.162.32.18
+      remote_user         : azureadm
+      ansible_connection  : ssh
+      connection_type     : key
+      virtual_host        : m27app00lcda
+      become_user         : root
+      os_type             : linux
+      vm_name             : DEV-NOEU-SAP01-M27_m27app_z2_00lcda
+      resource_group_name : DEV-NOEU-SAP01-M27
+      subscription_id     : d6c8e3b6-467e-452e-97c9-49d9de9e37da
+
+  vars:
+    node_tier             : pas
+    supported_tiers       : [pas]
+
+M27_APP:
+  hosts:
+  vars:
+    node_tier             : app
+    supported_tiers       : [app]
+
+M27_WEB:
+  hosts:
+  vars:
+    node_tier             : web
+    supported_tiers       : [web]
+
+M27_OBSERVER_DB:
+  hosts:
+  vars:
+    node_tier             : observer
+    supported_tiers       : [observer]
+
+M27_ISCSI:
+  hosts:
+  vars:
+    node_tier             : iscsi
+    supported_tiers       : [iscsi]
